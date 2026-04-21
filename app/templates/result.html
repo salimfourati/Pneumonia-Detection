@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Résultat</title>
+    <!-- Bootstrap CSS local -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- CSS personnalisé -->
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+    <style>
+        .result-normal {
+            color: green;
+            font-weight: bold;
+            font-size: 1.8rem;
+        }
+        .result-pneumonie {
+            color: red;
+            font-weight: bold;
+            font-size: 1.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-overlay"></div>
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="card shadow-lg" style="width: 100%; max-width: 600px;">
+            <div class="card-header bg-primary text-white text-center py-4">
+                <h1 class="card-title"><i class="fas fa-lungs"></i> Résultat de l'analyse</h1>
+            </div>
+            <div class="card-body p-5 text-center">
+                <p class="h4 text-secondary">La radiographie est classée comme :</p>
+                {% if result == 'Pneumonie' %}
+                    <p class="result-pneumonie">{{ result }}</p>
+                {% elif result == 'Normal' %}
+                    <p class="result-normal">{{ result }}</p>
+                {% else %}
+                    <p class="h4 text-dark">{{ result }}</p>
+                {% endif %}
+                <p class="h5 mt-3">Probabilité : <strong>{{ probability | round(2) }}%</strong></p>
+                <img src="{{ image_url }}" alt="Radiographie" class="img-fluid mt-4" style="max-width: 300px; border: 2px solid #007BFF; border-radius: 10px;">
+                <div class="mt-5">
+                    <a href="/" class="btn btn-primary btn-lg"><i class="fas fa-arrow-left"></i> Retour</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS local -->
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+</body>
+</html>
